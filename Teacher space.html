@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Espace Enseignant - Création Examen</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>✨Teacher space✨</h1>
+  <h3>📝Create your exam</h3>
+  <p>All you have to do is fill in all the appropriate information in each box.</p>
+
+  <!-- Création d'examen -->
+  <form class="examForm">
+    <input type="text" id="examTitle" placeholder="Title" required>
+    <textarea id="examDesc" placeholder="Description" required></textarea>
+    <input type="text" id="examAudience" placeholder="Target Audience (ex : MIP2 S4 G2)" required>
+    <button type="submit">Generate a Unique Access Link</button>
+    <p id="generatedLink" class="geoloc"></p>
+  </form>
+
+  <!-- Ajout de question -->
+  <form class="questionForm">
+    <h3>📤 Add a question</h3>
+    <select id="QuestionType">
+      <option value="qcm">QCM</option>
+      <option value="directe">Question Directe</option>
+    </select>
+    <textarea id="questionText" placeholder="Question Statement" required></textarea>
+    <input type="file" id=" Media File (Image, Audio, Video)📁 " accept="image/*,audio/*,video/*">
+
+    <!-- QCM -->
+    <div id="qcmOptions" class="hidden">
+      <input type="text" class="qcmOption" placeholder="Option A">
+      <input type="checkbox"> Bonne réponse<br>
+      <input type="text" class="qcmOption" placeholder="Option B">
+      <input type="checkbox"> Bonne réponse<br>
+    </div>
+
+    <!-- Directe -->
+    <div id="directeFields" class="hidden">
+      <input type="text" id="directAnswer" placeholder="Expected Answer">
+      <input type="number" id="tolerance" placeholder="Tolérance (%)">
+    </div>
+
+    <input type="number" id="questionDuration" placeholder="Duration (in seconds))" required>
+    <input type="number" id="questionScore" placeholder="Note " required>
+    <button type="submit"> Add a question</button>
+    <button onclick="editQuestion(0)">✏️ Edit your question </button>
+    <button onclick="deleteQuestion(0)">🗑️ Delete your question</button>
+  </form>
+
+</div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>

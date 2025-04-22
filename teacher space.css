@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background:#fff;
+   color: #fff;
+  }
+  
+  .examForm{
+    max-width: 800px;
+    margin: auto;
+    background:transparent;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #6e2d6a;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  h3{
+    color: #000;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: italic;
+    text-align: center;
+  }
+  p{
+    text-align: center;
+    color:#000 ;
+    font-style: italic;
+  
+  }
+  
+  .questionForm{
+  
+    max-width: 800px;
+    margin: auto;
+    background:transparent;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  input, textarea, select, button {
+    width: 100%;
+    padding: 15px;
+    margin: 8px 0;
+    border-radius: 10px;
+    background:#fff;
+    border-color: #000;
+  }
+  
+  button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    height: 50px;
+    width: 300px;
+    background:#6e2d6a;
+    color: #d9c8e2;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: #000;
+  }
+  #questionList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  #questionList li {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  
+  .question-actions {
+    margin-top: 10px;
+  }
+  
+  .question-actions button {
+    margin-right: 10px;
+    background: #6e2d6a;
+    margin-left: 600px;
+    color: #fff;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .question-actions button:hover {
+    background: #000;
+  }
+  
+  
