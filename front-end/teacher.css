@@ -103,9 +103,9 @@ body {
   }
   table{
     height: 400px;
-    width: 1200px;
-    margin-left: 145px;
-    color: #6e2d6a;
+    width: 100%;
+  
+    color: #fff;
     font-size:1.5rem;
     font-style: italic;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
