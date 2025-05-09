@@ -24,8 +24,9 @@ body {
   h3{
     color: #000;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-style: italic;
+
     text-align: center;
+    font-size: 2rem;
   }
   p{
     text-align: center;
@@ -46,9 +47,11 @@ body {
   input, textarea, select, button {
     width: 100%;
     padding: 15px;
+    font-style: italic;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 8px 0;
     border-radius: 10px;
-    background:#fff;
+    background:#f5daf3;
     border-color: #000;
   }
   
@@ -65,7 +68,7 @@ body {
   }
   
   button:hover {
-    background: #000;
+    background: #f5daf3;
   }
   #questionList {
     list-style: none;
@@ -102,7 +105,10 @@ body {
     height: 400px;
     width: 1200px;
     margin-left: 145px;
-    color: #fff;
-    background-color: #6e2d6a;
+    color: #6e2d6a;
+    font-size:1.5rem;
+    font-style: italic;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5daf3;
   
   }
