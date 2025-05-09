@@ -13,9 +13,9 @@
 
   <!-- Création d'examen -->
   <form class="examForm">
-    <input type="text" id="titreExam" placeholder="Titre de l'examen" required />
-    <textarea id="description" placeholder="Description de l'examen" required></textarea>
-    <input type="date" id="dateExam" required />
+    <input type="text" id="titreExam" placeholder="Exam Title " required />
+    <textarea id="description" placeholder="Description" required></textarea>
+    <input type="date" id="date" required />
     <input type="text" id="examAudience" placeholder="Target Audience (ex: MIP2 S4 G2)" required>
     <button type="submit">✅ Generate Exam Link</button>
     <div id="generatedLink" class="exam-link"></div>
@@ -53,13 +53,14 @@
 </div>
   </form>
   <!-- Liste des questions ajoutées -->
-  <h3>📑 Questions ajoutées</h3>
+  
   <ul id="questionList">
   <!-- Les questions s'affichent ici dynamiquement via JS -->
   </ul>
 
 
   <!-- Liste des examens -->
+  <h3>List of your previous exams</h3>
   <table id="examTable" border="1">
     <thead>
       <tr>
