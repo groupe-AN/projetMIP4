@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Espace Enseignant - Création Examen</title>
+  <link rel="stylesheet" href="teacher.css">
+</head>
+<body>
+
+  <h1>✨ Teacher space ✨</h1>
+  <h3>📝 Create your exam</h3>
+  <p>All you have to do is fill in all the appropriate information in each box.</p>
+
+  <!-- Création d'examen -->
+  <form class="examForm">
+    <input type="text" id="titreExam" placeholder="Titre de l'examen" required />
+    <textarea id="description" placeholder="Description de l'examen" required></textarea>
+    <input type="date" id="dateExam" required />
+    <input type="text" id="examAudience" placeholder="Target Audience (ex: MIP2 S4 G2)" required>
+    <button type="submit">✅ Generate Exam Link</button>
+    <div id="generatedLink" class="exam-link"></div>
+  </form>
+
+  <!-- Ajout de question -->
+  <form class="questionForm">
+    <h3>📤 Add a question</h3>
+    <select id="QuestionType">
+      <option value="qcm">QCM</option>
+      <option value="directe">Question Directe</option>
+    </select>
+    <textarea id="questionText" placeholder="Question Statement" required></textarea>
+    <input type="file" id=" Media File (Image, Audio, Video)📁 " accept="image/,audio/,video/*">
+
+    <!-- QCM -->
+    <div id="qcmOptions" class="hidden">
+      <input type="text" class="qcmOption" placeholder="Option A">
+      <input type="checkbox"> Bonne réponse<br>
+      <input type="text" class="qcmOption" placeholder="Option B">
+      <input type="checkbox"> Bonne réponse<br>
+    </div>
+
+    <!-- Directe -->
+    <div id="directeFields" class="hidden">
+      <input type="text" id="directAnswer" placeholder="Expected Answer">
+      <input type="number" id="tolerance" placeholder="Tolérance (%)">
+    </div>
+
+    <input type="number" id="questionDuration" placeholder="Duration (in seconds))" required>
+    <input type="number" id="questionScore" placeholder="Note " required>
+    <button type="submit">➕ Add Question</button>
+  </form>
+
+</div>
+  </form>
+  <!-- Liste des questions ajoutées -->
+  <h3>📑 Questions ajoutées</h3>
+  <ul id="questionList">
+  <!-- Les questions s'affichent ici dynamiquement via JS -->
+  </ul>
+
+
+  <!-- Liste des examens -->
+  <h3>📋 Vos examens</h3>
+  <table id="examTable" border="1">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Audience</th>
+        <th>Questions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="teacher.js"></script>
+</body>
+</html>
