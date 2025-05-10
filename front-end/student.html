@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Exam Platform</title>
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #d4a9d1;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #2c3e50;
+            
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            
+        }
+        
+        /* Header Styles */
+        header {
+            background-color:#30062c;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            
+           position: relative; /* Ensures the header stays in place */
+           z-index: 1000; /* Keeps it above the background */
+           padding: 10px 20px;
+           color: white; /* Ensures text remains visible */
+
+
+          
+        }
+        
+        
+        .logout-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        /* Auth Page Styles */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+        
+        .auth-form {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 30px;
+        }
+        
+        .auth-form h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: #b334a8;
+            outline: none;
+        }
+        
+        .auth-btn {
+            background-color:#b334a8;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .auth-btn:hover {
+            background-color: #7d8386;
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .switch-auth {
+            text-align: center;
+            margin-top: 20px;
+            color: #7f8c8d;
+        }
+        
+        .switch-auth a {
+            color: #353636;
+            text-decoration: none;
+        }
+        
+        .switch-auth a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Exam Type Selection Styles */
+        .exam-type {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .exam-type-btn {
+            background-color:#b334a8;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 0 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .exam-type-btn:hover {
+            background-color: #4e5b63;
+        }
+        
+        /* Geolocation Warning Styles */
+        .geolocation-warning {
+            display: none;
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* Exam Container Styles */
+        .exam-container {
+            display: none;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timer {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e74c3c;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .question-container {
+            margin-bottom: 30px;
+        }
+        
+        .question-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .qcm-options {
+            margin-top: 15px;
+        }
+        
+        .qcm-option {
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .qcm-option:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .qcm-option.selected {
+            background-color: #646f77;
+            color: white;
+            border-color: #545758;
+        }
+        
+        .direct-answer {
+            width: 100%;
+            min-height: 150px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            resize: vertical;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .nav-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        #prevQuestionBtn {
+            background-color: #95a5a6;
+            color: white;
+        }
+        
+        #nextQuestionBtn {
+            background-color: #d8b24b;
+            color: white;
+        }
+        
+        /* Results Styles */
+        .results {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .score {
+            font-size: 72px;
+            font-weight: bold;
+            color: #380622;
+            margin: 20px 0;
+        }
+        
+        /* Page Sections */
+        #authPage {
+            display: block;
+        }
+        
+        #registerPage {
+            display: none;
+        }
+        
+        #examPage {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (shown only when logged in) -->
+    <header id="header" style="display: none;">
+        <h1>Student Exam Platform</h1>
+
+        <div id="userInfo"></div>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </header>
+    
+    
+    <!-- Login Page -->
+    <div id="authPage">
+        <div class="auth-container">
+            <div class="auth-form">
+                <h1>Welcome Back</h1>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required>
+                        <div id="loginError" class="error"></div>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">Log In</button>
+                </form>
+                
+                <div class="switch-auth">
+                    Don't have an account? <a href="#" id="showRegister">Register</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Registration Page -->
+    <div id="registerPage">
+        <div class="auth-container">
+            <div class="auth-form">
+                <h1>Create Your Account</h1>
+                
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="registerName">Full Name</label>
+                        <input type="text" id="registerName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerEmail">Email Address</label>
+                        <input type="email" id="registerEmail" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" id="registerPassword" required minlength="6">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">Confirm Password</label>
+                        <input type="password" id="registerConfirmPassword" required>
+                        <div id="registerError" class="error"></div>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">Register</button>
+                </form>
+                
+                <div class="switch-auth">
+                    Already have an account? <a href="#" id="showLogin">Log in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Exam Page -->
+    <div id="examPage">
+        <div class="container">
+            <div class="exam-type" id="examTypeSelection">
+                <h2>Select Exam Type</h2>
+                <button class="exam-type-btn" id="directExamBtn">Direct Questions</button>
+                <button class="exam-type-btn" id="qcmExamBtn">Multiple Choice (MCQ)</button>
+            </div>
+            
+            <div class="geolocation-warning" id="geolocationWarning">
+                <h3>Geolocation Required</h3>
+                <p>Before starting the exam, you must enable geolocation. Your location will be recorded for security purposes.</p>
+                <button class="auth-btn" id="enableGeolocationBtn">Enable Geolocation</button>
+                <p id="geolocationStatus"></p>
+            </div>
+            
+            <div class="exam-container" id="examContainer">
+                <div class="timer" id="timer">00:00</div>
+                
+                <div class="question-container">
+                    <div class="question-text" id="questionText"></div>
+                    
+                    <div class="qcm-options" id="qcmOptions" style="display: none;"></div>
+                    
+                    <textarea class="direct-answer" id="directAnswer" style="display: none;" placeholder="Type your answer here..."></textarea>
+                </div>
+                
+                <div class="navigation">
+                    <button class="nav-btn" id="prevQuestionBtn">Previous Question</button>
+                    <button class="nav-btn" id="nextQuestionBtn">Next Question</button>
+                </div>
+            </div>
+            
+            <div class="results" id="resultsContainer">
+                <h2>Exam Completed</h2>
+                <p>Your final score is:</p>
+                <div class="score" id="finalScore">0</div>
+                <p>out of 100</p>
+                <button class="auth-btn" id="returnToDashboardBtn">Return to Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const header = document.getElementById('header');
+        const userInfo = document.getElementById('userInfo');
+        const logoutBtn = document.getElementById('logoutBtn');
+        
+        const authPage = document.getElementById('authPage');
+        const registerPage = document.getElementById('registerPage');
+        const examPage = document.getElementById('examPage');
+        
+        const showRegister = document.getElementById('showRegister');
+        const showLogin = document.getElementById('showLogin');
+        
+        const loginForm = document.getElementById('loginForm');
+        const loginEmail = document.getElementById('loginEmail');
+        const loginPassword = document.getElementById('loginPassword');
+        const loginError = document.getElementById('loginError');
+        
+        const registrationForm = document.getElementById('registrationForm');
+        const registerName = document.getElementById('registerName');
+        const registerEmail = document.getElementById('registerEmail');
+        const registerPassword = document.getElementById('registerPassword');
+        const registerConfirmPassword = document.getElementById('registerConfirmPassword');
+        const registerError = document.getElementById('registerError');
+        
+        const examTypeSelection = document.getElementById('examTypeSelection');
+        const directExamBtn = document.getElementById('directExamBtn');
+        const qcmExamBtn = document.getElementById('qcmExamBtn');
+        const geolocationWarning = document.getElementById('geolocationWarning');
+        const enableGeolocationBtn = document.getElementById('enableGeolocationBtn');
+        const geolocationStatus = document.getElementById('geolocationStatus');
+        const examContainer = document.getElementById('examContainer');
+        const timer = document.getElementById('timer');
+        const questionText = document.getElementById('questionText');
+        const qcmOptions = document.getElementById('qcmOptions');
+        const directAnswer = document.getElementById('directAnswer');
+        const prevQuestionBtn = document.getElementById('prevQuestionBtn');
+        const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const finalScore = document.getElementById('finalScore');
+        const returnToDashboardBtn = document.getElementById('returnToDashboardBtn');
+        
+        // Sample questions
+        const directQuestions = [
+            {
+                question: "Explain the fundamental principles of object-oriented programming.",
+                answer: ""
+            },
+            {
+                question: "Describe the differences between HTTP and HTTPS protocols.",
+                answer: ""
+            },
+            {
+                question: "What are the advantages and disadvantages of NoSQL databases?",
+                answer: ""
+            }
+        ];
+        
+        const qcmQuestions = [
+            {
+                question: "Which language is used to style web pages?",
+                options: ["HTML", "CSS", "JavaScript", "PHP"],
+                correctAnswer: 1,
+                userAnswer: null
+            },
+            {
+                question: "Which HTTP method is used to send data to a server?",
+                options: ["GET", "POST", "PUT", "DELETE"],
+                correctAnswer: 1,
+                userAnswer: null
+            },
+            {
+                question: "What is the result of '3' + 2 in JavaScript?",
+                options: ["5", "32", "Error", "undefined"],
+                correctAnswer: 1,
+                userAnswer: null
+            }
+        ];
+        
+        // State variables
+        let currentUser = null;
+        let examType = null;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let timeLeft = 0;
+        let timerInterval = null;
+        let userLocation = null;
+        
+        // Event Listeners
+        showRegister.addEventListener('click', showRegisterPage);
+        showLogin.addEventListener('click', showLoginPage);
+        loginForm.addEventListener('submit', handleLogin);
+        registrationForm.addEventListener('submit', handleRegister);
+        logoutBtn.addEventListener('click', handleLogout);
+        directExamBtn.addEventListener('click', () => startExam('direct'));
+        qcmExamBtn.addEventListener('click', () => startExam('qcm'));
+        enableGeolocationBtn.addEventListener('click', requestGeolocation);
+        prevQuestionBtn.addEventListener('click', showPreviousQuestion);
+        nextQuestionBtn.addEventListener('click', showNextQuestion);
+        returnToDashboardBtn.addEventListener('click', returnToDashboard);
+        
+        // Check authentication state on page load
+        checkAuthState();
+        
+        // Functions
+        function checkAuthState() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (isLoggedIn && user) {
+                currentUser = user;
+                showExamPage();
+            } else {
+                showLoginPage();
+            }
+        }
+        
+        function showLoginPage() {
+            authPage.style.display = 'block';
+            registerPage.style.display = 'none';
+            examPage.style.display = 'none';
+            header.style.display = 'none';
+        }
+        
+        function showRegisterPage() {
+            authPage.style.display = 'none';
+            registerPage.style.display = 'block';
+            examPage.style.display = 'none';
+            header.style.display = 'none';
+        }
+        
+        function showExamPage() {
+            authPage.style.display = 'none';
+            registerPage.style.display = 'none';
+            examPage.style.display = 'block';
+            header.style.display = 'flex';
+            
+            userInfo.textContent = Welcome, `${currentUser.name}`;
+            
+            // Reset exam state
+            examTypeSelection.style.display = 'block';
+            geolocationWarning.style.display = 'none';
+            examContainer.style.display = 'none';
+            resultsContainer.style.display = 'none';
+        }
+        
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = loginEmail.value;
+            const password = loginPassword.value;
+            
+            // Simple validation
+            if (!email || !password) {
+                loginError.textContent = "Please fill in all fields";
+                return;
+            }
+            
+            // In a real app, this would be an API call
+            const storedUser = JSON.parse(localStorage.getItem('userData'));
+            
+            if (!storedUser || email !== storedUser.email || password !== storedUser.password) {
+                loginError.textContent = "Invalid email or password";
+                return;
+            }
+            
+            // Login successful
+            currentUser = {
+                name: storedUser.fullName,
+                email: storedUser.email
+            };
+            
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            showExamPage();
+        }
+        
+        function handleRegister(e) {
+            e.preventDefault();
+            
+            const fullName = registerName.value;
+            const email = registerEmail.value;
+            const password = registerPassword.value;
+            const confirmPassword = registerConfirmPassword.value;
+            
+            // Validation
+            if (!fullName || !email || !password || !confirmPassword) {
+                registerError.textContent = "Please fill in all fields";
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                registerError.textContent = "Passwords do not match";
+                return;
+            }
+            
+            if (password.length < 6) {
+                registerError.textContent = "Password must be at least 6 characters";
+                return;
+            }
+            
+            // In a real app, this would be an API call
+            const userData = {
+                fullName,
+                email,
+                password
+            };
+            
+            localStorage.setItem('userData', JSON.stringify(userData));
+            
+            // Auto-login after registration
+            currentUser = {
+                name: fullName,
+                email: email
+            };
+            
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            showExamPage();
+        }
+        
+        function handleLogout() {
+            localStorage.removeItem('isLoggedIn');
+            currentUser = null;
+            showLoginPage();
+        }
+        
+        function startExam(type) {
+            examType = type;
+            examTypeSelection.style.display = 'none';
+            geolocationWarning.style.display = 'block';
+        }
+        
+        function requestGeolocation() {
+            if (navigator.geolocation) {
+                geolocationStatus.textContent = "Requesting permission...";
+                
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        // Success
+                        userLocation = {
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude,
+                            accuracy: position.coords.accuracy
+                        };
+                        
+                        geolocationStatus.textContent =` Location recorded (Accuracy: ${userLocation.accuracy.toFixed(2)} meters)`;
+                        geolocationStatus.style.color = "green";
+                        
+                        // Start exam after short delay
+                        setTimeout(initializeExam, 1500);
+                    },
+                    (error) => {
+                        // Error
+                        let errorMessage;
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMessage = "User denied the request for geolocation.";
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMessage = "Location information is unavailable.";
+                                break;
+                            case error.TIMEOUT:
+                                errorMessage = "The request to get user location timed out.";
+                                break;
+                            case error.UNKNOWN_ERROR:
+                                errorMessage = "An unknown error occurred.";
+                                break;
+                        }
+                        
+                        geolocationStatus.textContent = errorMessage;
+                        geolocationStatus.style.color = "red";
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
+                    }
+                );
+            } else {
+                geolocationStatus.textContent = "Geolocation is not supported by this browser.";
+                geolocationStatus.style.color = "red";
+            }
+        }
+        
+        function initializeExam() {
+            geolocationWarning.style.display = 'none';
+            examContainer.style.display = 'block';
+            
+            // Initialize user answers
+            if (examType === 'direct') {
+                userAnswers = directQuestions.map(q => ({ answer: "" }));
+                timeLeft = directQuestions.length * 60; // 1 minute per question
+            } else {
+                userAnswers = qcmQuestions.map(q => ({ userAnswer: null }));
+                timeLeft = qcmQuestions.length * 30; // 30 seconds per question
+            }
+            
+            // Start timer
+            startTimer();
+            
+            // Show first question
+            showQuestion(0);
+        }
+        
+        function startTimer() {
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    finishExam();
+                }
+            }, 1000);
+        }
+        
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Change color when time is running out
+            if (timeLeft <= 30) {
+                timer.style.color = "#e74c3c";
+            } else {
+                timer.style.color = "#2c3e50";
+            }
+        }
+        
+        function showQuestion(index) {
+            currentQuestionIndex = index;
+            
+            // Update navigation buttons
+            prevQuestionBtn.disabled = index === 0;
+            nextQuestionBtn.textContent = index === (examType === 'direct' ? directQuestions.length : qcmQuestions.length) - 1 
+                ? "Finish Exam" 
+                : "Next Question";
+            
+            if (examType === 'direct') {
+                // Show direct question
+                qcmOptions.style.display = 'none';
+                directAnswer.style.display = 'block';
+                
+                questionText.textContent = `Question ${index + 1}/${directQuestions.length}: ${directQuestions[index].question}`;
+                directAnswer.value = userAnswers[index].answer;
+            } else {
+                // Show MCQ question
+                directAnswer.style.display = 'none';
+                qcmOptions.style.display = 'block';
+                
+                questionText.textContent = `Question ${index + 1}/${qcmQuestions.length}: ${qcmQuestions[index].question}`;
+                
+                // Create MCQ options
+                qcmOptions.innerHTML = "";
+                qcmQuestions[index].options.forEach((option, i) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className =` qcm-option ${userAnswers[index].userAnswer === i ? 'selected' : ''}`;
+                    optionElement.textContent = option;
+                    optionElement.dataset.index = i;
+                    
+                    optionElement.addEventListener('click', function() {
+                        // Deselect all options
+                        document.querySelectorAll('.qcm-option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        
+                        // Select this option
+                        this.classList.add('selected');
+                        userAnswers[index].userAnswer = parseInt(this.dataset.index);
+                    });
+                    
+                    qcmOptions.appendChild(optionElement);
+                });
+            }
+        }
+        
+        function showPreviousQuestion() {
+            saveCurrentAnswer();
+            showQuestion(currentQuestionIndex - 1);
+        }
+        
+        function showNextQuestion() {
+            saveCurrentAnswer();
+            
+            if (currentQuestionIndex === (examType === 'direct' ? directQuestions.length : qcmQuestions.length) - 1) {
+                finishExam();
+            } else {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }
+        
+        function saveCurrentAnswer() {
+            if (examType === 'direct') {
+                userAnswers[currentQuestionIndex].answer = directAnswer.value;
+            }
+            // For MCQ, answer is already saved when option is clicked
+        }
+        
+        function finishExam() {
+            clearInterval(timerInterval);
+            examContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            
+            // Calculate score (for MCQ only in this example)
+            let score = 0;
+            if (examType === 'qcm') {
+                const totalQuestions = qcmQuestions.length;
+                let correctAnswers = 0;
+                
+                qcmQuestions.forEach((q, i) => {
+                    if (userAnswers[i].userAnswer === q.correctAnswer) {
+                        correctAnswers++;
+                    }
+                });
+                
+                score = Math.round((correctAnswers / totalQuestions) * 100);
+            } else {
+                // For direct questions, we could implement automatic grading
+                // or just give a base score (in reality, this would require manual grading)
+                score = Math.floor(Math.random() * 30) + 70; // Random score between 70-100 for demo
+            }
+            
+            finalScore.textContent = score;
+        }
+        
+        function returnToDashboard() {
+            resultsContainer.style.display = 'none';
+            examTypeSelection.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
